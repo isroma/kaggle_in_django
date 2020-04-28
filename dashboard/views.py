@@ -7,12 +7,9 @@ today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().mont
 
 def competition(request, pk):
     competition = Dashboard.objects.get(pk=pk)
-    show_competitions = True
     context = {
-        'competition': competition,
-        'show_competitions': show_competitions
+        'competition': competition
     }
-    print("hola")
     return render(request, 'competition.html', context)
 
 # Activas:
@@ -21,7 +18,8 @@ def competition(request, pk):
 def actives(request):
     competitions = Dashboard.objects.filter(deadline__gte=today).filter(beginning__lte=today)
     context = {
-        'competitions': competitions
+        'competitions': competitions,
+        'show_competitions': True
     }
     return render(request, 'actives.html', context)
 
@@ -30,7 +28,8 @@ def actives(request):
 def coming(request):
     competitions = Dashboard.objects.filter(beginning__gt=today)
     context = {
-        'competitions': competitions
+        'competitions': competitions,
+        'show_competitions': True
     }
     return render(request, 'coming.html', context)
 
@@ -39,7 +38,8 @@ def coming(request):
 def pasts(request):
     competitions = Dashboard.objects.filter(deadline__lte=today)
     context = {
-        'competitions': competitions
+        'competitions': competitions,
+        'show_competitions': True
     }
     return render(request, 'pasts.html', context)
 
