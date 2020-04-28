@@ -1,0 +1,5 @@
+add to kaggle-django/settings.py
+    ALLOWED_HOSTS = ['kaggleindjango.pythonanywhere.com']
+    STATIC_ROOT= '/home/kaggleindjango/kaggle_in_django/users/static/'
+
+dont forget to migrate at bash console from pythonanywhere
