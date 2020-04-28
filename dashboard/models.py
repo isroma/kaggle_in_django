@@ -9,7 +9,7 @@ from django.utils import timezone
 class Dashboard(models.Model):
     title = models.CharField(max_length=30)
     description = models.TextField()
-    beginning = models.DateField(default=timezone.now())
+    beginning = models.DateField(default=timezone.now)
     deadline = models.DateField()
     participants = models.IntegerField()
     author = models.TextField()

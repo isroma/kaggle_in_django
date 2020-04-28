@@ -7,9 +7,12 @@ today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().mont
 
 def competition(request, pk):
     competition = Dashboard.objects.get(pk=pk)
+    show_competitions = True
     context = {
-        'competition': competition
+        'competition': competition,
+        'show_competitions': show_competitions
     }
+    print("hola")
     return render(request, 'competition.html', context)
 
 # Activas:

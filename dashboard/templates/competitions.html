@@ -39,7 +39,9 @@
     </div>
 </nav>
 
-<div class="row" {% block show_competitions %}{% endblock %}>
+{{ show_competitions }}
+{% if show_competitions == True %}
+<div class="row">
     {% for competition in competitions %}
     <div class="col-md-4">
         <div class="card mb-2">
@@ -61,6 +63,7 @@
     </div>
     {% endfor %}
 </div>
+{% endif %}
 
 {% block creating %}{% endblock %}
 

@@ -3,3 +3,7 @@ add to kaggle-django/settings.py
     STATIC_ROOT= '/home/kaggleindjango/kaggle_in_django/users/static/'
 
 dont forget to migrate at bash console from pythonanywhere
+
+to update website
+    cd <home>
+    git pull
