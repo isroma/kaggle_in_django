@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load socialaccount %}
+{% block page_content %}
+
+<link rel="stylesheet" href="{% static 'register.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<body>
+   <div class="container">
+      <div class="col-md-6 mx-auto text-center">
+         <h1 style="font-size: 35;">
+            Iniciar sesión
+         </h1>
+      </div>
+      <div class="row">
+         <div class="col-md-4 mx-auto">
+            {% if error_message %}
+            <p class="alert alert-warning" role="alert">{{ error_message }}</p>
+            {% endif %}
+            <div class="myform form">
+               <form action="{% url 'login' %}" method="post" name="login">
+                  {% csrf_token %}
+                  <div class="form-group">
+                     <div>
+                        {{ form.as_p }}
+                     </div>
+                  </div>
+                  <div class="text-center">
+                     <button type="submit" style="padding: 8px 25px; width:100%; font-weight: 600;"
+                        class="btn btn-block btn-info tx-tfm">Iniciar sesión</button>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="login-or">
+                        <hr class="hr-or">
+                        <span class="span-or">o</span>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <a class="btn btn-block g-button" href="{% provider_login_url 'google' %}">
+                        <i class="fa fa-google"></i> Iniciar sesión con Google
+                     </a>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<h1 class="pb-2">Login correcto</h1>
+
+<p>
+    Bienvenido <b>{{request.user.username}}</b>, 
+    esta página es exclusiva para usuarios registrados.
+</p>
+{% endblock %}

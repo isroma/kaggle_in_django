@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+<link rel="stylesheet" href="{% static 'register.css' %}">
+
+<h1>{{ competition.title }}</h1>
+<div class="row">
+    <div class="col-md-5 pt-4">
+        <h5>Descripción:</h5>
+        <p>{{ competition.description }}</p>
+        <br>
+        <h5>Fecha límite:</h5>
+        <p>{{ competition.deadline }}</p>
+        <br>
+        <h5>Fecha de inicio:</h5>
+        <p>{{ competition.beginning }}</p>
+        <br>
+
+        {% if competition.author == request.user.username %}
+        <form action="{% url 'delete' competition.pk %}" class="pt-2">
+            <button type="submit" class="btn btn-danger"
+                onclick="return confirm('¿Está seguro de que quiere eliminar la {{ competition.title }}?');">
+                <span class="fa fa-trash pr-2"></span>
+                Eliminar
+            </button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

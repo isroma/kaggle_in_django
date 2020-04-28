@@ -1,0 +1,60 @@
+{% extends "competitions.html" %}
+{% block active_creating %}active{% endblock %}
+{% block show_competitions %}style="display: none;"{% endblock %}
+{% load static %}
+
+{% block creating %}
+
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+
+<link rel="stylesheet" href="{% static 'register.css' %}">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="col mx-auto">
+    <div class="myform form">
+        <form action="{% url 'creating' %}" method="post" name="competition">
+            {% csrf_token %}
+            <div class="form-group pl-3">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="fieldWrapper pb-3">
+                            {{ form.title.errors }}
+                            <label for="{{ form.title.id_for_label }}">Título:</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ form.description.errors }}
+                            <label for="{{ form.description.id_for_label }}">Descripción:</label>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="fieldWrapper pb-3">
+                            {{ form.beginning.errors }}
+                            <label for="{{ form.beginning.id_for_label }}">Fecha de inicio:</label>
+                            {{ form.beginning }}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ form.deadline.errors }}
+                            <label for="{{ form.deadline.id_for_label }}">Fecha de finalización:</label>
+                            {{ form.deadline }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center col-md-3 pt-2">
+                <button type="submit"
+                    style="color: white; background-color: #00c884; font-size: 20; border-radius: 5px; border: 2px solid #00c884;"
+                    class="btn btn-info">
+                    <span class="fa fa-plus-square pr-2"></span>
+                    Crear nueva competición
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
