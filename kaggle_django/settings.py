@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cglcf3foz72ed=ai3qa%eml2322wb3375y=(h@gycz!y(sojy_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Setting for hosting at pythonanywhere
+# Set to False when deployed
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Setting for hosting at pythonanywhere
+ALLOWED_HOSTS = ['kaggleindjango.pythonanywhere.com', '127.0.0.1']
 
 # Application definition
 
@@ -134,6 +137,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# Setting for hosting at pythonanywhere
+# Uncomment when deployed there
+# STATIC_ROOT= '/home/kaggleindjango/kaggle_in_django/users/static/'
+# Comment when deployed there
+STATIC_ROOT= '/static/'
 STATIC_URL = '/static/'
 
 # Provider specific settings
