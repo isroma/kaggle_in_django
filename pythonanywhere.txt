@@ -4,6 +4,6 @@ add to kaggle-django/settings.py
 
 dont forget to migrate at bash console from pythonanywhere
 
-to update website
+update website
     cd <home>
     git pull
