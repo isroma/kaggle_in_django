@@ -141,7 +141,7 @@ USE_TZ = True
 # Uncomment when deployed there
 # STATIC_ROOT= '/home/kaggleindjango/kaggle_in_django/users/static/'
 # Comment when deployed there
-STATIC_ROOT= '/static/'
+STATIC_ROOT = '/var/www/static/'
 STATIC_URL = '/static/'
 
 # Provider specific settings

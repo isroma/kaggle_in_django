@@ -3,7 +3,13 @@ add to kaggle-django/settings.py
     STATIC_ROOT= '/home/kaggleindjango/kaggle_in_django/users/static/'
 
 dont forget to migrate at bash console from pythonanywhere
+    python3 manage.py makemigrations
+    python3 manage.py migrate
 
 update website
-    cd <home>
+    cd /kaggle_in_django
+    git reset --hard
     git pull
+
+in case calendar at create competition doesn't work
+    python3 manage.py collectstatic
