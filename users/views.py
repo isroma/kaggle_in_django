@@ -73,4 +73,4 @@ def login(request):
 
 def logout(request):
     do_logout(request)
-    return redirect('/')
+    return redirect('login')

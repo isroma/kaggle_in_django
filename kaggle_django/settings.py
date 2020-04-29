@@ -141,7 +141,10 @@ USE_TZ = True
 # Uncomment when deployed there
 # STATIC_ROOT= '/home/kaggleindjango/kaggle_in_django/users/static/'
 # Comment when deployed there
-STATIC_ROOT = '/var/www/static/'
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 STATIC_URL = '/static/'
 
 # Provider specific settings
@@ -153,14 +156,14 @@ SOCIALACCOUNT_PROVIDERS = {
             'key': ''
         },
         'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
+            'SCOPE': [
+                'profile',
+                'email',
+            ],
+            'AUTH_PARAMS': {
+                'access_type': 'online',
+            }
         }
-    }
     }
 }
 
