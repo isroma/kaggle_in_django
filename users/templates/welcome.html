@@ -1,10 +1,92 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-<h1 class="pb-2">Login correcto</h1>
 
-<p>
-    Bienvenido <b>{{request.user.username}}</b>, 
-    esta página es exclusiva para usuarios registrados.
-</p>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">¡Hola, <b style="color: #00c884;">{{ user.username }}</b>!</h1>
+            <br>
+            {% if verified == False %}
+            <p>No olvides <b>verificar tu correo electrónico</b> para poder disfrutar al completo de todas
+                las prestaciones de Kaggle in Django. Si aún no has recibido el correo electrónico,
+                espera unos minutos, a veces los servidores tardan un poco más de lo normal en responder.
+            </p>
+            <p>El correo electrónico se ha enviado a <b>{{ user.email }}</b></p>
+            {% else %}
+            <p>
+                <span class="fa fa-check-circle pr-2" style="color: #00c884;"></span>
+                <b>Correo electrónico confirmado</b>, empieza a disfrutar de Kaggle in Django al máximo.
+            </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2 style="color: #00c884;" class="text-center">
+                    <span class="fa fa-ban pr-2"></span>
+                    Usuarios sin registrar
+                </h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Visualizar competiciones
+                    </li>
+                    <li class="list-group-item">Participar en competiciones</li>
+                    <li class="list-group-item">Obtener puntos de usuario</li>
+                    <li class="list-group-item">Crear competiciones</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2 style="color: #00c884;" class="text-center">
+                    <span class="fa fa-user pr-2"></span>
+                    Usuarios registrados
+                </h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Visualizar competiciones
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Participar en competiciones
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Obtener puntos de usuario
+                    </li>
+                    <li class="list-group-item">Crear competiciones</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2 style="color: #00c884;" class="text-center">
+                    <span class="fa fa-black-tie pr-2"></span>
+                    Usuarios premium
+                </h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Visualizar competiciones
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Participar en competiciones
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Obtener puntos de usuario
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fa fa-check pr-2" style="color: #00c884;"></span>
+                        Crear competiciones
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
 {% endblock %}

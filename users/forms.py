@@ -1,5 +1,6 @@
 from django import forms
 
+
 class RegisterForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label="Nombre de usuario")
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}), label="Correo electrónico")

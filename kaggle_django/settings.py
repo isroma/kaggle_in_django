@@ -147,6 +147,13 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/static/'
 
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+
+
+# Login and sign in with Google
+
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -168,6 +175,9 @@ SOCIALACCOUNT_PROVIDERS = {
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/users/welcome'
 
-BOOTSTRAP4 = {
-    'include_jquery': True,
-}
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+# TODO: add credentials
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587

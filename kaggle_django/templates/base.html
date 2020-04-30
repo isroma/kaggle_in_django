@@ -40,6 +40,19 @@
             Registrarse
           </a>
         </li>
+        {% elif user.verified == False %}
+        <li class="nav-item active">
+          <a class="btn btn-info" style="width:100%; font-weight: 600;" href="{% url 'login' %}">
+            <span class="fa fa-sign-in pr-2"></span>
+            Iniciar sesión
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="btn btn-dark" style="width:100%; font-weight: 600;" href="{% url 'register' %}">
+            <span class="fa fa-user-circle pr-2"></span>
+            Registrarse
+          </a>
+        </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link pr-3">Sesión iniciada como: <i> {{ user }}</i></a>
