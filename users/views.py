@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from users.forms import RegisterForm, LoginForm
+from users.forms import RegisterForm, LoginForm, ProfileForm
+from users.models import Profile
 from django.template.loader import render_to_string, get_template
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.core.mail import EmailMultiAlternatives
-from django.http import HttpResponse
 from users.tokens import account_activation_token
 
 
@@ -44,8 +44,9 @@ def register(request):
                     form.cleaned_data['email'],
                     form.cleaned_data['password']
                 )
-                user.verified = False
+                
                 user.save()
+                profile = Profile.objects.create(user=user, verified=False)
 
                 mail_subject = 'Activa tu cuenta de Kaggle in Django'
                 message = render_to_string('email.html', {
@@ -63,8 +64,7 @@ def register(request):
                 email.send()
 
                 context = {
-                    'user': user,
-                    'verified': False
+                    'user': user
                 }
 
                 return render(request, 'welcome.html', context)
@@ -82,9 +82,15 @@ def login(request):
 
             user = authenticate(username=username, password=password)
 
-            if user is not None:
+            if user is not None and Profile.objects.filter(user=user, verified=True):
                 do_login(request, user)
                 return redirect('/', {'user': user})
+
+            elif Profile.objects.filter(user=user, verified=False):
+                return render(request, 'login.html', {
+                    'form': form,
+                    'error_message': 'El correo electrónico no ha sido confirmado'
+                })
 
             elif (User.objects.filter(username=form.cleaned_data['username']).exists() == False) \
                     or (User.objects.filter(username=form.cleaned_data['password']).exists() == False):
@@ -109,19 +115,19 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
+        Profile.objects.filter(user=user).update(verified=True)
+        
         do_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
         context = {
-            'user': user,
-            'verified': True
+            'user': user
         }
 
         return redirect('/users/welcome', context)
 
     else:
         context = {
-            'user': user,
-            'verified': False
+            'user': user
         }
 
         return redirect('/users/welcome', context)
