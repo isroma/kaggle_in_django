@@ -7,6 +7,11 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     verified = models.BooleanField(default=False)
+    challenger = models.BooleanField(default=False)
+    points = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
+
+    def get_points(self):
+        return self.user.points

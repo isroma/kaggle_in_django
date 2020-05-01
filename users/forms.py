@@ -23,9 +23,3 @@ class LoginForm(forms.Form):
         fields = ['username', 'password']
         exclude = ['email', 'password_repeat']
 
-class ProfileForm(ModelForm):
-    verified = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
-
-    class Meta:
-        model = Profile
-        fields = ['verified']

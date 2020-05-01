@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect
 from dashboard.models import Dashboard
 from dashboard.forms import CompetitionForm
+from users.models import Profile
+from django.db.models import F
 import datetime
 
 today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day)
 
 def competition(request, pk):
     competition = Dashboard.objects.get(pk=pk)
+    
     context = {
         'competition': competition
     }
+
     return render(request, 'competition.html', context)
 
 # Activas:
@@ -17,30 +21,36 @@ def competition(request, pk):
 # Fecha de finalizacion posterior a hoy
 def actives(request):
     competitions = Dashboard.objects.filter(deadline__gte=today).filter(beginning__lte=today)
+    
     context = {
         'competitions': competitions,
         'show_competitions': True
     }
+
     return render(request, 'actives.html', context)
 
 # Proximas:
 # Fecha de inicio posterior a hoy
 def coming(request):
     competitions = Dashboard.objects.filter(beginning__gt=today)
+    
     context = {
         'competitions': competitions,
         'show_competitions': True
     }
+
     return render(request, 'coming.html', context)
 
 # Pasadas
 # Fecha de finalizacion anterior a hoy
 def pasts(request):
     competitions = Dashboard.objects.filter(deadline__lte=today)
+    
     context = {
         'competitions': competitions,
         'show_competitions': True
     }
+    
     return render(request, 'pasts.html', context)
 
 def creating(request):
@@ -63,3 +73,17 @@ def delete(request, pk):
     competition = Dashboard.objects.get(pk=pk)
     competition.delete()
     return redirect('/dashboard/actives')
+
+def add_points(request, pk):
+
+    user = Profile.objects.filter(user=request.user)
+
+    user.update(points=F('points')+5)
+    if user.filter(points__gte=25): user.update(challenger=True)
+    
+    competition = Dashboard.objects.get(pk=pk)
+    context = {
+        'competition': competition
+    }
+
+    return render(request, 'competition.html', context)

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as do_login, logout as do_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from users.forms import RegisterForm, LoginForm, ProfileForm
+from users.forms import RegisterForm, LoginForm
 from users.models import Profile
 from django.template.loader import render_to_string, get_template
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -82,7 +82,7 @@ def login(request):
 
             user = authenticate(username=username, password=password)
 
-            if user is not None and Profile.objects.filter(user=user, verified=True):
+            if user is not None:# and Profile.objects.filter(user=user, verified=True):
                 do_login(request, user)
                 return redirect('/', {'user': user})
 
