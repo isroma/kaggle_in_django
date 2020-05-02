@@ -13,15 +13,28 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'homepage_index' %}">Kaggle en Django</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand pr-2" style="color: #00c884;" href="{% url 'homepage_index' %}">
+      Kaggle in Django
+    </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'actives' %}">Competiciones</a>
+        <li class="nav-item pr-2">
+          <a class="nav-link {% block active_competitions %}{% endblock %}" href="{% url 'actives' %}">
+            <span class="fa fa-trophy pr-2" {% block color_competitions %}{% endblock %}></span>
+            Competiciones
+          </a>
+        </li>
+        <li class="nav-item pr-2">
+          <a class="nav-link {% block active_datasets %}{% endblock %}" href="{% url 'datasets' %}">
+            <span class="fa fa-database pr-2" {% block color_datasets %}{% endblock %}></span>
+            Datasets
+          </a>
+        </li>
+        <li class="nav-item pr-2">
+          <a class="nav-link {% block active_notebooks %}{% endblock %}" href="{% url 'notebooks' %}">
+            <span class="fa fa-book pr-2" {% block color_notebooks %}{% endblock %}></span>
+            Notebooks
+          </a>
         </li>
       </ul>
     </div>
