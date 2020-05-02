@@ -82,7 +82,7 @@ def login(request):
 
             user = authenticate(username=username, password=password)
 
-            if user is not None:# and Profile.objects.filter(user=user, verified=True):
+            if user is not None and Profile.objects.filter(user=user, verified=True):
                 do_login(request, user)
                 return redirect('/', {'user': user})
 

@@ -4,9 +4,29 @@
 
 <link rel="stylesheet" href="{% static 'register.css' %}">
 
-<h1>{{ competition.title }}</h1>
 <div class="row">
-    <div class="col-md-5 pt-4">
+    {% if competition.author == request.user.username or request.user.is_staff %}
+    <form action="{% url 'delete' competition.pk %}" class="pt-2 pl-3">
+        <button type="submit" class="btn btn-danger"
+            onclick="return confirm('¿Está seguro de que quiere eliminar la {{ competition.title }}?');">
+            <span class="fa fa-trash pr-2"></span>
+            Eliminar
+        </button>
+    </form>
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'add_points' competition.pk %}" class="pt-2 pl-3">
+        <button type="submit" class="btn btn-info">
+            Añadir puntos
+        </button>
+    </form>
+    {% endif %}
+</div>
+
+<h1 class="pt-2">{{ competition.title }}</h1>
+<div class="row">
+    <div class="col-md-5 pt-3">
         <h5>Descripción:</h5>
         <p>{{ competition.description }}</p>
         <br>
@@ -16,24 +36,28 @@
         <h5>Fecha de inicio:</h5>
         <p>{{ competition.beginning }}</p>
         <br>
-
-        {% if competition.author == request.user.username or request.user.is_staff %}
-        <form action="{% url 'delete' competition.pk %}" class="pt-2">
-            <button type="submit" class="btn btn-danger"
-                onclick="return confirm('¿Está seguro de que quiere eliminar la {{ competition.title }}?');">
-                <span class="fa fa-trash pr-2"></span>
-                Eliminar
-            </button>
-        </form>
-        {% endif %}
-
-        {% if request.user.is_authenticated %}
-        <form action="{% url 'add_points' competition.pk %}" class="pt-2">
-            <button type="submit" class="btn btn-info">
-                Añadir puntos
-            </button>
-        </form>
-        {% endif %}
+        <h5 class="pb-2">Ranking:</h5>
     </div>
+
+    <table class="table" style="outline-style: solid; outline-width: 2px; outline-color: lightgrey; text-align: center;">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Puntos</th>
+                <th scope="col">Aproximación</th>
+            </tr>
+        </thead>
+        {% for ranking in rankings %}
+        <tbody>
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ ranking.username }}</td>
+                <td>{{ ranking.points }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}

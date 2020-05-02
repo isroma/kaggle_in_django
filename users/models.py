@@ -13,5 +13,3 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    def get_points(self):
-        return self.user.points
