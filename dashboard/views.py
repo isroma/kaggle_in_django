@@ -10,7 +10,7 @@ today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().mont
 
 def competition(request, pk):
     competition = Dashboard.objects.get(pk=pk)
-    rankings = Ranking.objects.all()
+    rankings = Ranking.objects.filter(container=competition).all().order_by('-points')
     
     context = {
         'competition': competition,
@@ -64,8 +64,8 @@ def creating(request):
             competition = CompetitionForm()
             competition = form.save(commit=False)
             
-            competition.participants = 0
             competition.author = request.user.username
+
             competition.save()
             
             return redirect('/dashboard/actives')
@@ -94,7 +94,7 @@ def add_points(request, pk):
 
     # Ranking.objects.create(container=competition,username='manu',points=10)
     
-    rankings = Ranking.objects.all().order_by('-points')
+    rankings = Ranking.objects.filter(container=competition).all().order_by('-points')
 
     context = {
         'competition': competition,

@@ -6,7 +6,9 @@ class Dashboard(models.Model):
     description = models.TextField()
     beginning = models.DateField(default=timezone.now)
     deadline = models.DateField()
-    participants = models.IntegerField()
+    max_daily_uploads = models.IntegerField(default=5)
+    wait_time_uploads = models.IntegerField(default=60) # Minutes
+    participants = models.IntegerField(default=0)
     author = models.TextField()
 
 class Ranking(models.Model):

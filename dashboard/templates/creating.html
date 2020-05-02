@@ -36,10 +36,20 @@
                             <label for="{{ form.beginning.id_for_label }}">Fecha de inicio:</label>
                             {{ form.beginning }}
                         </div>
-                        <div class="fieldWrapper">
+                        <div class="fieldWrapper pb-3">
                             {{ form.deadline.errors }}
                             <label for="{{ form.deadline.id_for_label }}">Fecha de finalización:</label>
                             {{ form.deadline }}
+                        </div>
+                        <div class="fieldWrapper pb-3">
+                            {{ form.max_daily_uploads.errors }}
+                            <label for="{{ form.max_daily_uploads.id_for_label }}">Envíos diarios permitidos:</label>
+                            {{ form.max_daily_uploads }}
+                        </div>
+                        <div class="fieldWrapper">
+                            {{ form.wait_time_uploads.errors }}
+                            <label for="{{ form.wait_time_uploads.id_for_label }}">Tiempo de espera entre envíos:</label>
+                            {{ form.wait_time_uploads }}
                         </div>
                     </div>
                 </div>
