@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% load socialaccount %}
-{% block page_content %}
 
-<link rel="stylesheet" href="{% static 'register.css' %}">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+{% block page_content %}
 
 <body>
    <div class="container">
-      <div class="col-md-6 mx-auto text-center">
+      <div class="col-md-6 mx-auto text-center pt-2 pb-3">
          <h1 style="font-size: 35;">
             Registrarse
          </h1>
@@ -26,8 +24,8 @@
                         {{ form.as_p }}
                      </div>
                   </div>
-                  <div class="text-center">
-                     <button type="submit" style="padding: 8px 25px; width:100%; font-weight: 600;"
+                  <div class="text-center pt-2">
+                     <button type="submit" style="padding: 8px 25px; width:100%; font-weight: 600; background-color: #00c884; border-color: #00c884;"
                         class="btn btn-block btn-info tx-tfm">Crear nueva cuenta</button>
                   </div>
                   <div class="col-md-12">
@@ -50,4 +48,5 @@
       </div>
    </div>
 </body>
+
 {% endblock %}

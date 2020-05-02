@@ -114,20 +114,16 @@ def activate(request, uidb64, token):
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
+    context = {
+            'user': user
+        }
+
     if user is not None and account_activation_token.check_token(user, token):
         Profile.objects.filter(user=user).update(verified=True)
         
         do_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
-        context = {
-            'user': user
-        }
-
         return redirect('/users/welcome', context)
 
     else:
-        context = {
-            'user': user
-        }
-
         return redirect('/users/welcome', context)

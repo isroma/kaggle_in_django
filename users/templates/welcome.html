@@ -7,7 +7,7 @@
         <div class="container">
             <h1 class="display-3">¡Hola, <b style="color: #00c884;">{{ user.username }}</b>!</h1>
             <br>
-            {% if verified == False %}
+            {% if request.user.is_authenticated == False %}
             <p>No olvides <b>verificar tu correo electrónico</b> para poder disfrutar al completo de todas
                 las prestaciones de Kaggle in Django. Si aún no has recibido el correo electrónico,
                 espera unos minutos, a veces los servidores tardan un poco más de lo normal en responder.

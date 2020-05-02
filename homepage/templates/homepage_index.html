@@ -1,5 +1,54 @@
 {% extends "base.html" %}
-{% load static %}
 {% block page_content %}
-<h1>Muestro cosas</h1>
+
+<br>
+<div class="jumbotron" style="background-image: url('/static/img/geometric.jpg'); background-size: cover;">
+    <div class="container text-center">
+        <h3>
+            <a style="color: #565656; background-color: white; border-radius: 5px; padding: 15px;">
+                <i>"La información es la gasolina del Siglo XXI, su análisis el motor de combustión"</i>
+            </a>
+        </h3>
+        <br>
+        <p style="color: white;">
+            <b>Peter Sondergaard</b>
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mb-5 pr-4">
+            <h2 style="color: #00c884;">Qué hacemos</h2>
+            <hr>
+            <p class="text-justify">En Kaggle in Django nos encargamos de facilitar a los usuarios el poder participar en competitiones
+                de Big Data creadas por ellos mismos así como por empresas. ¡Será posible obtener <b>recompensas económicas</b>
+                al participar de forma efectiva en las mismas!
+            </p>
+            <p class="text-justify">No olvides <b>registrarte</b> previamente para poder disfrutar de todas las ventajas de la web, tales como participar
+                en las competitiones, crearlas y otras muchas más. Datasets y Notebooks están disponibles
+                sin iniciar sesión, por lo que puedes acceder de inmediato.</p>
+        </div>
+
+        <div class="col-md-4 mb-5">
+            <h2 style="color: #00c884;">Contáctanos</h2>
+            <hr>
+            <address>
+                <strong>U-tad</strong>
+                <br>Calle Playa de Liencres, 2
+                <br>Parque Europa Empresarial
+                <br>28290 Las Rozas, Madrid
+                <br>
+            </address>
+            <address>
+                <span class="fa fa-phone pr-1" style="color: #00c884;"></span>
+                900 373 379 
+                <br>
+                <span class="fa fa-envelope pr-1" style="color: #00c884;"></span>
+                info@u-tad.com
+            </address>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
