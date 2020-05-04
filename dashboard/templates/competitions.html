@@ -4,26 +4,26 @@
 
 {% block page_content %}
 
-<nav class="navbar navbar-expand-lg navbar-white bg-white pb-4" style:"">
+<nav class="navbar navbar-expand-lg navbar-white bg-white pb-4">
     <div class="container">
-        <a class="navbar-brand" style="color: #4c5357; font-size: 35;" href="{% url 'actives' %}">Competiciones</a>
+        <a class="navbar-brand" style="color: #4c5357; font-size: 35px;" href="{% url 'actives' %}">Competiciones</a>
         <ul class="nav nav-tabs pt-2">
             <li class="nav-item">
-                <a class="nav-link {% block active_actives %}{% endblock %}" style="color: 4c5357; font-size: 20;"
+                <a class="nav-link {% block active_actives %}{% endblock %}" style="color: #4c5357; font-size: 20px;"
                     href="{% url 'actives' %}">
                     <span class="fa fa-align-left pr-2"></span>
                     Activas
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% block active_coming %}{% endblock %}" style="color: #4c5357; font-size: 20;"
+                <a class="nav-link {% block active_coming %}{% endblock %}" style="color: #4c5357; font-size: 20px;"
                     href="{% url 'coming' %}">
                     <span class="fa fa-hourglass-end pr-2"></span>
                     Próximas
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% block active_pasts %}{% endblock %}" style="color: #4c5357; font-size: 20;"
+                <a class="nav-link {% block active_pasts %}{% endblock %}" style="color: #4c5357; font-size: 20px;"
                     href="{% url 'pasts' %}">
                     <span class="fa fa-lock pr-2"></span>
                     Terminadas
@@ -31,7 +31,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link {% block active_creating %}{% endblock %}" style="color: #00c884; font-size: 20;"
+                <a class="nav-link {% block active_creating %}{% endblock %}" style="color: #00c884; font-size: 20px;"
                     href="{% url 'creating' %}">
                     <span class="fa fa-search pr-2"></span>
                     Crear competición
