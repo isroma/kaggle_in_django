@@ -1,5 +1,7 @@
 {% extends "competitions.html" %}
 {% block active_creating %}active{% endblock %}
+<!-- Cookies banner is loading twice due to creating extending from competitions -->
+{% block hide_cookies %}style="display: none;"{% endblock %}
 {% load static %}
 
 {% block creating %}
@@ -20,35 +22,29 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="fieldWrapper pb-3">
-                            {{ form.title.errors }}
-                            <label for="{{ form.title.id_for_label }}">Título:</label>
+                            <label>Título:</label>
                             {{ form.title }}
                         </div>
                         <div class="fieldWrapper">
-                            {{ form.description.errors }}
-                            <label for="{{ form.description.id_for_label }}">Descripción:</label>
+                            <label>Descripción:</label>
                             {{ form.description }}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="fieldWrapper pb-3">
-                            {{ form.beginning.errors }}
-                            <label for="{{ form.beginning.id_for_label }}">Fecha de inicio:</label>
+                            <label>Fecha de inicio:</label>
                             {{ form.beginning }}
                         </div>
                         <div class="fieldWrapper pb-3">
-                            {{ form.deadline.errors }}
-                            <label for="{{ form.deadline.id_for_label }}">Fecha de finalización:</label>
+                            <label>Fecha de finalización:</label>
                             {{ form.deadline }}
                         </div>
                         <div class="fieldWrapper pb-3">
-                            {{ form.max_daily_uploads.errors }}
-                            <label for="{{ form.max_daily_uploads.id_for_label }}">Envíos diarios permitidos:</label>
+                            <label>Envíos diarios permitidos:</label>
                             {{ form.max_daily_uploads }}
                         </div>
                         <div class="fieldWrapper">
-                            {{ form.wait_time_uploads.errors }}
-                            <label for="{{ form.wait_time_uploads.id_for_label }}">Tiempo de espera entre envíos:</label>
+                            <label>Tiempo de espera entre envíos:</label>
                             {{ form.wait_time_uploads }}
                         </div>
                     </div>

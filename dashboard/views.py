@@ -6,7 +6,9 @@ from dashboard.forms import CompetitionForm
 from django.db.models import F
 import datetime
 
+
 today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day)
+
 
 def competition(request, pk):
     competition = Dashboard.objects.get(pk=pk)
@@ -19,11 +21,13 @@ def competition(request, pk):
 
     return render(request, 'competition.html', context)
 
-# Activas:
-# Fecha de inicio anterior a hoy
-# Fecha de finalizacion posterior a hoy
+
+# Active competitions:
+# Beginning date before today
+# Deadline date after today
+# Ordered by most recent
 def actives(request):
-    competitions = Dashboard.objects.filter(deadline__gte=today).filter(beginning__lte=today)
+    competitions = Dashboard.objects.filter(deadline__gte=today).filter(beginning__lte=today).order_by('-beginning')
     
     context = {
         'competitions': competitions,
@@ -32,10 +36,12 @@ def actives(request):
 
     return render(request, 'actives.html', context)
 
-# Proximas:
-# Fecha de inicio posterior a hoy
+
+# Coming competitions:
+# Beginning date after today
+# Ordered by closest date
 def coming(request):
-    competitions = Dashboard.objects.filter(beginning__gt=today)
+    competitions = Dashboard.objects.filter(beginning__gt=today).order_by('beginning')
     
     context = {
         'competitions': competitions,
@@ -44,10 +50,12 @@ def coming(request):
 
     return render(request, 'coming.html', context)
 
-# Pasadas
-# Fecha de finalizacion anterior a hoy
+
+# Past competitions:
+# Deadline date before today
+# Ordered by last finished
 def pasts(request):
-    competitions = Dashboard.objects.filter(deadline__lte=today)
+    competitions = Dashboard.objects.filter(deadline__lte=today).order_by('-deadline')
     
     context = {
         'competitions': competitions,
@@ -55,6 +63,7 @@ def pasts(request):
     }
     
     return render(request, 'pasts.html', context)
+
 
 def creating(request):
     form = CompetitionForm(request.POST or None)
@@ -72,10 +81,12 @@ def creating(request):
 
     return render(request, 'creating.html', {'form': form})
 
+
 def delete(request, pk):
     competition = Dashboard.objects.get(pk=pk)
     competition.delete()
     return redirect('/dashboard/actives')
+
 
 def add_points(request, pk):
 
@@ -102,3 +113,4 @@ def add_points(request, pk):
     }
 
     return render(request, 'competition.html', context)
+    

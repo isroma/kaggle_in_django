@@ -1,11 +1,27 @@
 .g-button{
     color: #fff !important;
-    border: 1px solid #EA4335;
+    border: 1px solid #ea4335;
     background: #ea4335 !important;
     width:100%;
     font-weight: 600;
     color:#fff;
     padding: 8px 25px;
+}
+.g-button:hover{
+    border: 1px solid #d23c2f;
+    background: #d23c2f !important;
+}
+.login-button{
+    color: #fff !important;
+    border: 1px solid #00c884;
+    background: #00c884 !important;
+    width:100%;
+    font-weight: 600;
+    color:#fff;
+}
+.login-button:hover{
+    border: 1px solid #00b476;
+    background: #00b476 !important;
 }
 .my-input{
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);

@@ -46,17 +46,16 @@
     </div>
     <div>
       <ul class="nav navbar-nav navbar-right">
-        {% if user.id is None or user.profile.verified == False%}
-        <li class="nav-item active">
-          <a class="btn btn-info"
-            style="width:100%; font-weight: 600; background-color: #00c884; border-color: #00c884;"
+        {% if user.id is None or user.profile.verified == False %}
+        <li class="nav-item">
+          <a class="btn login-button" 
             href="{% url 'login' %}">
             <span class="fa fa-sign-in pr-2"></span>
             Iniciar sesión
           </a>
         </li>
         <li class="nav-item">
-          <a class="btn" style="width:100%; font-weight: 600; color: white" href="{% url 'register' %}">
+          <a class="btn btn-dark" style="width:100%; font-weight: 600; color: white" href="{% url 'register' %}">
             <span class="fa fa-user-circle pr-2"></span>
             Registrarse
           </a>
@@ -66,8 +65,7 @@
           <a class="nav-link pr-3">Sesión iniciada como: <i> {{ user }}</i></a>
         </li>
         <li class="nav-item active">
-          <a class="btn btn-info"
-            style="width:100%; font-weight: 600; background-color: #00c884; border-color: #00c884;"
+          <a class="btn login-button"
             href="{% url 'logout' %}">
             <span class="fa fa-sign-out pr-2"></span>
             Cerrar sesión
@@ -79,7 +77,7 @@
   </div>
 </nav>
 
-<div class="alert text-center cookiealert" role="alert">
+<div class="alert text-center cookiealert" role="alert" {% block hide_cookies %}{% endblock %}>
   <b>¿Te gustan las cookies?</b> &#x1F36A; Usamos las cookies para garantizarte una mejor experiencia como usuario
   <a href="https://cookiesandyou.com/" target="_blank" class="pl-2" style="color: white;">Saber más</a>
   <button type="button" class="pl-2 btn btn-primary btn-sm acceptcookies">

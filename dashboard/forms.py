@@ -6,10 +6,8 @@ from bootstrap_datepicker_plus import DatePickerInput
 
 
 class CompetitionForm(ModelForm):
-    title = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control'}), label="Título")
-    description = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control'}), label="Descripción")
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
     beginning = forms.DateField(widget=DatePickerInput(format='%d/%m/%Y', options={
         "showClose": False,
         "showClear": False,
@@ -20,10 +18,8 @@ class CompetitionForm(ModelForm):
         "showClear": False,
         "showTodayButton": False,
     }), initial=timezone.now())
-    max_daily_uploads = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'number'}),
-        label="Envíos diarios permitidos", initial=5)
-    wait_time_uploads = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'number'}),
-        label="Tiempo de espera entre envíos", initial=60)
+    max_daily_uploads = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'number'}), initial=5)
+    wait_time_uploads = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'number'}), initial=60)
 
     class Meta:
         model = Dashboard
