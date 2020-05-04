@@ -178,6 +178,6 @@ LOGIN_REDIRECT_URL = '/users/welcome'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 # TODO: add credentials
-EMAIL_HOST_USER = 'kaggleindjango@gmail.com'
-EMAIL_HOST_PASSWORD = 'Redes2019'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587

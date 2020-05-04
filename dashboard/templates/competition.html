@@ -5,19 +5,19 @@
 
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 
-<div class="row">
+<div class="row pb-3">
     {% if competition.author == request.user.username or request.user.is_staff %}
+    <form action="{% url 'editing' competition.pk %}" class="pt-2 pl-3">
+        <button type="submit" class="btn login-button" style="font-weight: 400;">
+            <span class="fa fa-edit pr-2"></span>
+            Editar
+        </button>
+    </form>
     <form action="{% url 'delete' competition.pk %}" class="pt-2 pl-3">
         <button type="submit" class="btn btn-danger"
             onclick="return confirm('¿Está seguro de que quiere eliminar la {{ competition.title }}?');">
             <span class="fa fa-trash pr-2"></span>
             Eliminar
-        </button>
-    </form>
-    <form action="{% url 'edit' competition.pk %}" class="pt-2 pl-3">
-        <button type="submit" class="btn login-button" style="font-weight: 400;">
-            <span class="fa fa-trash pr-2"></span>
-            Editar
         </button>
     </form>
     {% endif %}
@@ -44,6 +44,9 @@
         <p>{{ competition.beginning }}</p>
         <br>
         <h5 class="pb-2">Ranking:</h5>
+    </div>
+    <div class="col">
+        
     </div>
 
     <table class="table" style="outline-style: solid; outline-width: 2px; outline-color: lightgrey; text-align: center;">

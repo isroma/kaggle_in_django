@@ -115,18 +115,28 @@ def add_points(request, pk):
     return render(request, 'competition.html', context)
     
 
-def edit(request, pk):
+def editing(request, pk):
     placeholder = Dashboard.objects.get(pk=pk)
 
-    form = CompetitionForm(request.POST or None)
+    form = CompetitionForm(request.POST or None, instance=placeholder)
+
+    context = {
+        'form': form,
+        'competition': placeholder,
+    }
+
+    form.fields['title'].initial = placeholder.title
+    form.fields['description'].initial = placeholder.description
+    form.fields['beginning'].initial = placeholder.beginning
+    form.fields['deadline'].initial = placeholder.deadline
+    form.fields['max_daily_uploads'].initial = placeholder.max_daily_uploads
+    form.fields['wait_time_uploads'].initial = placeholder.wait_time_uploads
 
     if request.method == 'POST':
         if form.is_valid():
-            competition = CompetitionForm()
-            competition.fields['title'].widget.attrs['placeholder'] = 'hola'
-            competition = form.save(commit=False)
-            competition.save()
+            form.save()
             
-            return redirect('/dashboard/actives')
+            url = '/dashboard/' + str(pk)
+            return redirect(url)
 
-    return render(request, 'creating.html', {'form': form})
+    return render(request, 'editing.html', context)

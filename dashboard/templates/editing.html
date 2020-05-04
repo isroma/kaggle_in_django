@@ -1,10 +1,9 @@
-{% extends "competitions.html" %}
-{% block active_creating %}active{% endblock %}
+{% extends "base.html" %}
 <!-- Cookies banner is loading twice due to creating extending from competitions -->
 {% block hide_cookies %}style="display: none;"{% endblock %}
 {% load static %}
 
-{% block creating %}
+{% block page_content %}
 
 {% load bootstrap4 %}
 {% bootstrap_css %}
@@ -14,9 +13,17 @@
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+<nav class="navbar navbar-expand-lg navbar-white bg-white pb-4">
+    <div class="container">
+        <a class="navbar-brand" style="color: #4c5357; font-size: 35px;">
+            Editando: <i> {{ competition.title }} </i>
+        </a>
+    </div>
+</nav>
+
 <div class="col mx-auto">
     <div class="myform form">
-        <form action="{% url 'creating' %}" method="post">
+        <form action="{% url 'editing' competition.pk%}" method="post">
             {% csrf_token %}
             <div class="form-group pl-3">
                 <div class="row">
@@ -54,8 +61,8 @@
                 <button type="submit"
                     style="font-weight: 400;"
                     class="btn login-button">
-                    <span class="fa fa-plus-square pr-2"></span>
-                    Crear nueva competición
+                    <span class="fa fa-edit pr-2"></span>
+                    Actualizar competición
                 </button>
             </div>
         </form>
