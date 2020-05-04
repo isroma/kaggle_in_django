@@ -3,7 +3,7 @@
 
 {% block page_content %}
 
-<link rel="stylesheet" href="{% static 'register.css' %}">
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
 
 <div class="row">
     {% if competition.author == request.user.username or request.user.is_staff %}
