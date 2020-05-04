@@ -9,4 +9,5 @@ urlpatterns = [
     path("<int:pk>/", views.competition, name="competition"),
     path("delete/<int:pk>/", views.delete, name="delete"),
     path("add_points/<int:pk>/", views.add_points, name="add_points"),
+    path("edit/<int:pk>/", views.edit, name="edit"),
 ]

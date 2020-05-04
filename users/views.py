@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as do_login, logout as do_logout
+from django.contrib.auth import authenticate, login as do_login, logout as do_logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from users.forms import RegisterForm, LoginForm
+from users.forms import RegisterForm, LoginForm, PasswordForm, ProfileForm
 from users.models import Profile
 from django.template.loader import render_to_string, get_template
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 from users.tokens import account_activation_token
+import random
+import string
 
 
 def welcome(request):
@@ -93,7 +95,7 @@ def login(request):
                 })
 
             elif (User.objects.filter(username=form.cleaned_data['username']).exists() == False) \
-                    or (User.objects.filter(username=form.cleaned_data['password']).exists() == False):
+                or (User.objects.filter(username=form.cleaned_data['password']).exists() == False):
                 return render(request, 'login.html', {
                     'form': form,
                     'error_message': 'El usuario o la contraseña son incorrectos'
@@ -127,3 +129,70 @@ def activate(request, uidb64, token):
 
     else:
         return redirect('/users/welcome', context)
+
+
+def password(request):
+    form = PasswordForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.get(email=email)
+
+            if User.objects.filter(email=form.cleaned_data['email']).exists():
+                new_password = ''.join((random.choice(string.ascii_letters + string.digits) for i in range(8)))
+                user.set_password(new_password)
+                user.save()
+
+                mail_subject = 'Recuperación de contraseña'
+                message = '<h3>Tu nueva contraseña es:</h3><strong>' + new_password + '</strong><br> \
+                        <p>Ya puedes iniciar sesión en Kaggle in Django con ella.</p>'
+                from_email = 'kaggleindjango@gmail.com'
+                to_email = form.cleaned_data.get('email')
+                email = EmailMessage(mail_subject, message, from_email, to=[to_email])
+                email.content_subtype = 'html'
+
+                email.send()
+
+                return redirect('/users/login')
+
+            else:
+                return render(request, 'password.html', {
+                    'form': form,
+                    'error_message': 'El correo electrónico no está registrado'
+                })
+
+    return render(request, 'password.html', {'form': form})
+
+
+def profile(request):
+    form = ProfileForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            if form.cleaned_data['password'] != form.cleaned_data['password_repeat']:
+                return render(request, 'profile.html', {
+                    'form': form,
+                    'error_message': 'Las nuevas contraseñas no coinciden'
+                })
+
+            elif request.user.check_password(form.cleaned_data['old_password']) == False:
+                return render(request, 'profile.html', {
+                    'form': form,
+                    'error_message': 'La contraseña antigua no es correcta'
+                })
+
+            elif form.cleaned_data['password'] == form.cleaned_data['old_password']:
+                return render(request, 'profile.html', {
+                    'form': form,
+                    'error_message': 'La contraseña nueva no puede ser la misma que la antigua'
+                })
+
+            else:
+                request.user.set_password(form.cleaned_data['password'])
+                request.user.save()
+                update_session_auth_hash(request, request.user)
+
+                return redirect('/')
+
+    return render(request, 'profile.html', {'form': form})

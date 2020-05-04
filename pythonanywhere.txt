@@ -13,3 +13,6 @@ update website
 
 in case calendar at create competition doesn't work
     python3 manage.py collectstatic
+
+fill email credentials at settings.py
+fill domain at users/views.py at sending email

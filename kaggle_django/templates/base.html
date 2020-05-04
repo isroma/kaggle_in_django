@@ -57,7 +57,7 @@
         {% else %}
         <li class="nav-item">
           <!-- Font size too small but that way it doesnt affect navbar size -->
-          <a class="nav-link pr-3" style="font-size: 7px; color: #9a9da0;">Sesión iniciada como: <br>
+          <a class="nav-link pr-3" href="{% url 'profile' %}" style="font-size: 7px; color: #9a9da0;">Sesión iniciada como: <br>
             <i style="font-size: 9px; color: white;">{{ user }}</i></a>
         </li>
         <li class="nav-item active">

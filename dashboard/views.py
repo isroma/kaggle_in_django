@@ -114,3 +114,19 @@ def add_points(request, pk):
 
     return render(request, 'competition.html', context)
     
+
+def edit(request, pk):
+    placeholder = Dashboard.objects.get(pk=pk)
+
+    form = CompetitionForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            competition = CompetitionForm()
+            competition.fields['title'].widget.attrs['placeholder'] = 'hola'
+            competition = form.save(commit=False)
+            competition.save()
+            
+            return redirect('/dashboard/actives')
+
+    return render(request, 'creating.html', {'form': form})
