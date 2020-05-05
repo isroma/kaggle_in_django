@@ -14,9 +14,13 @@
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+{% if user.is_authenticated and user.profile.challenger or user.is_staff %}
 <div class="col mx-auto">
     <div class="myform form">
-        <form action="{% url 'creating' %}" method="post">
+        {% if error_message %}
+        <p class="alert alert-warning" role="alert">{{ error_message }}</p>
+        {% endif %}
+        <form action="{% url 'creating' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group pl-3">
                 <div class="row">
@@ -25,7 +29,7 @@
                             <label>Título:</label>
                             {{ form.title }}
                         </div>
-                        <div class="fieldWrapper">
+                        <div class="fieldWrapper pb-3">
                             <label>Descripción:</label>
                             {{ form.description }}
                         </div>
@@ -49,11 +53,31 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="fieldWrapper">
+                            <label>CSV de train:</label>
+                            <small class="form-text text-muted pb-3">
+                                Este archivo es con el que <b>trabajarán los participantes</b>, debe contener un 30% de
+                                los datos aproximadamente.
+                            </small>
+                            {{ form.train }}
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="fieldWrapper">
+                            <label>CSV de test:</label>
+                            <small class="form-text text-muted pb-3">
+                                Este archivo es con el que se <b>evaluará al finalizar</b>, debe contener un 70% de los
+                                datos aproximadamente.
+                            </small>
+                            {{ form.test }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="text-center col-md-3 pt-2">
-                <button type="submit"
-                    style="font-weight: 400;"
-                    class="btn login-button">
+                <button type="submit" style="font-weight: 400;" class="btn login-button">
                     <span class="fa fa-plus-square pr-2"></span>
                     Crear nueva competición
                 </button>
@@ -61,5 +85,17 @@
         </form>
     </div>
 </div>
+{% elif user.profile.challenger == False %}
+<div class="text-center">
+    <i style="color: #4c5357;">No puedes crear competiciones hasta no ser <b style="color: #00c884;">desafiador</b>,
+        para ello debes participar en competiciones e ir acumulando puntos
+    </i>
+</div>
+{% else %}
+<div class="text-center">
+    <i style="color: #4c5357;">Debes <b style="color: #00c884;">iniciar sesión</b> previamente para poder crear una
+        competición</i>
+</div>
+{% endif %}
 
 {% endblock %}

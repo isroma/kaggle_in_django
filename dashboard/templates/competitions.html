@@ -29,7 +29,6 @@
                     Terminadas
                 </a>
             </li>
-            {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link {% block active_creating %}{% endblock %}" style="color: #00c884; font-size: 20px;"
                     href="{% url 'creating' %}">
@@ -37,7 +36,6 @@
                     Crear competición
                 </a>
             </li>
-            {% endif %}
         </ul>
     </div>
 </nav>

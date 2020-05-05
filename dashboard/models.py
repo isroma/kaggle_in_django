@@ -8,6 +8,8 @@ class Dashboard(models.Model):
     deadline = models.DateField()
     max_daily_uploads = models.IntegerField(default=5)
     wait_time_uploads = models.IntegerField(default=60) # Minutes
+    train = models.FileField(upload_to='files', blank=True, null=True)
+    test = models.FileField(upload_to='files', blank=True, null=True)
     participants = models.IntegerField(default=0)
     author = models.TextField()
 

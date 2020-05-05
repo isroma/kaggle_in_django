@@ -18,10 +18,12 @@ class CompetitionForm(ModelForm):
         "showClear": False,
         "showTodayButton": False,
     }), initial=timezone.now())
+    train = forms.FileField(widget=forms.FileInput())
+    test = forms.FileField(widget=forms.FileInput())
     max_daily_uploads = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'number'}), initial=5)
     wait_time_uploads = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'number'}), initial=60)
 
     class Meta:
         model = Dashboard
-        fields = ['title', 'description', 'beginning', 'deadline', 'max_daily_uploads', 'wait_time_uploads']
+        fields = ['title', 'description', 'beginning', 'deadline', 'train', 'test', 'max_daily_uploads', 'wait_time_uploads']
         exclude = ['participants', 'author']

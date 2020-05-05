@@ -10,16 +10,24 @@
 {% bootstrap_javascript jquery='full' %}
 {{ form.media }}
 
+{% if competition.author == request.user.username or request.user.is_staff %}
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-<nav class="navbar navbar-expand-lg navbar-white bg-white pb-4">
+<nav class="navbar navbar-expand-lg navbar-white bg-white">
     <div class="container">
         <a class="navbar-brand" style="color: #4c5357; font-size: 35px;">
             Editando: <i> {{ competition.title }} </i>
         </a>
     </div>
 </nav>
+
+<div class="text-center pb-4">
+    <i style="color: #4c5357;">No se pueden modificar los CSV, si se quieren cambiar, se tiene que 
+        <a href="{% url 'delete' competition.pk %}" style="color: #dc3645" 
+        onclick="return confirm('¿Está seguro de que quiere eliminar {{ competition.title }}?');"><b>borrar</b></a>
+        la competición y <b style="color: #00c884;">volver a crearla</b></i>
+</div>
 
 <div class="col mx-auto">
     <div class="myform form">
@@ -57,10 +65,8 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center col-md-3 pt-2">
-                <button type="submit"
-                    style="font-weight: 400;"
-                    class="btn login-button">
+            <div class="pl-3 pt-2">
+                <button type="submit" style="background-color: #00c884; border-color: #00c884;" class="btn btn-info">
                     <span class="fa fa-edit pr-2"></span>
                     Actualizar competición
                 </button>
@@ -68,5 +74,5 @@
         </form>
     </div>
 </div>
-
+{% endif %}
 {% endblock %}

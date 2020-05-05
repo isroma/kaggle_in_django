@@ -10,4 +10,5 @@ urlpatterns = [
     path("delete/<int:pk>/", views.delete, name="delete"),
     path("add_points/<int:pk>/", views.add_points, name="add_points"),
     path("editing/<int:pk>/", views.editing, name="editing"),
+    path("download/<int:pk>/", views.download, name="download"),
 ]

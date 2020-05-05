@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% block active_competitions %}active{% endblock %}
+{% block color_competitions %}style="color: #00c884;"{% endblock %}
 {% load static %}
 
 {% block page_content %}
@@ -15,7 +17,7 @@
     </form>
     <form action="{% url 'delete' competition.pk %}" class="pt-2 pl-3">
         <button type="submit" class="btn btn-danger"
-            onclick="return confirm('¿Está seguro de que quiere eliminar la {{ competition.title }}?');">
+            onclick="return confirm('¿Está seguro de que quiere eliminar {{ competition.title }}?');">
             <span class="fa fa-trash pr-2"></span>
             Eliminar
         </button>
@@ -33,23 +35,40 @@
 
 <h1 class="pt-2">{{ competition.title }}</h1>
 <div class="row">
-    <div class="col-md-5 pt-3">
+    <div class="col-md-8 pt-3 text-justify">
         <h5>Descripción:</h5>
         <p>{{ competition.description }}</p>
         <br>
-        <h5>Fecha límite:</h5>
-        <p>{{ competition.deadline }}</p>
-        <br>
+    </div>
+    <div class="col-md-3">
         <h5>Fecha de inicio:</h5>
         <p>{{ competition.beginning }}</p>
         <br>
-        <h5 class="pb-2">Ranking:</h5>
+        <h5>Fecha de finalización:</h5>
+        <p>{{ competition.deadline }}</p>
+        <br>
+        <h5>Participantes:</h5>
+        <p>{{ competition.participants }}</p>
     </div>
-    <div class="col">
-        
-    </div>
+</div>
 
-    <table class="table" style="outline-style: solid; outline-width: 2px; outline-color: lightgrey; text-align: center;">
+<div class="pt-3 pb-4 text-center">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'download' competition.pk %}" style="background-color: #00c884; border-color: #00c884"
+        class="btn btn-info">
+        <span class="fa fa-download pr-2"></span>
+        Descargar CSV
+    </a>
+    {% else %}
+    <i style="color: #4c5357;">Debes <b style="color: #00c884;">iniciar sesión</b> previamente para poder participar en
+        una competición</i>
+    {% endif %}
+</div>
+
+<div>
+    <h5 class="pb-2">Ranking de participantes:</h5>
+    <table class="table"
+        style="outline-style: solid; outline-width: 2px; outline-color: lightgrey; text-align: center;">
         <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>

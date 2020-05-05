@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from dashboard.models import Dashboard, Ranking
+from django.http import HttpResponse
 from users.models import Profile
 from dashboard.forms import CompetitionForm
 from django.db.models import F
 import datetime
+import os
 
 
 today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day)
@@ -13,7 +15,7 @@ today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().mont
 def competition(request, pk):
     competition = Dashboard.objects.get(pk=pk)
     rankings = Ranking.objects.filter(container=competition).all().order_by('-points')
-    
+
     context = {
         'competition': competition,
         'rankings': rankings
@@ -66,18 +68,36 @@ def pasts(request):
 
 
 def creating(request):
-    form = CompetitionForm(request.POST or None)
+    form = CompetitionForm(request.POST or None, request.FILES or None)
 
     if request.method == 'POST':
         if form.is_valid():
-            competition = CompetitionForm()
-            competition = form.save(commit=False)
-            
-            competition.author = request.user.username
+            if not request.FILES['test'].name.endswith('.csv'):
+                return render(request, 'creating.html', {
+                    'form': form,
+                    'error_message': 'El archivo test debe tener una extensión .csv'
+                })
 
-            competition.save()
+            elif form.cleaned_data['beginning'] < today:
+                error_message = 'El día de inicio no puede ser anterior a hoy (' + str(today) + ')'
+
+                return render(request, 'creating.html', {
+                    'form': form,
+                    'error_message': error_message
+                })
+
+            else:
+                competition = CompetitionForm()
+                competition = form.save(commit=False)
+
+                competition.test = request.FILES['test']
+                competition.author = request.user.username
+
+                competition.save()
             
-            return redirect('/dashboard/actives')
+                url = '/dashboard/' + str(competition.pk)
+
+            return redirect(url)
 
     return render(request, 'creating.html', {'form': form})
 
@@ -134,9 +154,35 @@ def editing(request, pk):
 
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            competition = CompetitionForm()
+            competition = form.save(commit=False)
+            competition.save()
             
             url = '/dashboard/' + str(pk)
             return redirect(url)
 
     return render(request, 'editing.html', context)
+
+
+def download(request, pk):
+    competition = Dashboard.objects.get(pk=pk)
+
+    response = HttpResponse(competition.train, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="%s.csv"' % competition.title
+
+    # Creating ranking if someone participates
+    user = Profile.objects.filter(user=request.user)
+    user.update(points=F('points')+5)
+    if user.filter(points__gte=25): user.update(challenger=True)
+
+    # Initializing user as participant
+    ranking = Ranking.objects.filter(container=competition)
+    username = request.user.username
+    if ranking is None: ranking.create(container=competition)
+    if ranking.filter(container=competition, username=username).exists() == False: 
+        ranking.create(container=competition, username=username)
+
+    competition.participants = ranking.count()
+    competition.save()
+
+    return response
