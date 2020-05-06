@@ -154,7 +154,7 @@ BOOTSTRAP4 = {
 
 # Managing files (like uploading csv)
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 # Login and sign in with Google
