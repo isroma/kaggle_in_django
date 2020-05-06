@@ -157,12 +157,12 @@ def password(request):
                 return redirect('/users/login')
 
             else:
-                return render(request, 'password.html', {
+                return render(request, 'recover_password.html', {
                     'form': form,
                     'error_message': 'El correo electrónico no está registrado'
                 })
 
-    return render(request, 'password.html', {'form': form})
+    return render(request, 'recover_password.html', {'form': form})
 
 
 def profile(request):
@@ -171,19 +171,19 @@ def profile(request):
     if request.method == 'POST':
         if form.is_valid():
             if form.cleaned_data['password'] != form.cleaned_data['password_repeat']:
-                return render(request, 'profile.html', {
+                return render(request, 'change_password.html', {
                     'form': form,
                     'error_message': 'Las nuevas contraseñas no coinciden'
                 })
 
             elif request.user.check_password(form.cleaned_data['old_password']) == False:
-                return render(request, 'profile.html', {
+                return render(request, 'change_password.html', {
                     'form': form,
                     'error_message': 'La contraseña antigua no es correcta'
                 })
 
             elif form.cleaned_data['password'] == form.cleaned_data['old_password']:
-                return render(request, 'profile.html', {
+                return render(request, 'change_password.html', {
                     'form': form,
                     'error_message': 'La contraseña nueva no puede ser la misma que la antigua'
                 })
@@ -195,4 +195,4 @@ def profile(request):
 
                 return redirect('/')
 
-    return render(request, 'profile.html', {'form': form})
+    return render(request, 'change_password.html', {'form': form})

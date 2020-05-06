@@ -1,0 +1,30 @@
+.dropdown-menu {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+.dropdown-item {
+    color: #9a9da0;
+}
+
+.dropdown-item:hover {
+    color: #cccecf;
+    background-color: transparent;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+
+#session {
+    color: #dc3645;
+}
+
+#session:hover {
+    color: #c82334;
+}

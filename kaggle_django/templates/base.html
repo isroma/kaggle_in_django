@@ -11,6 +11,7 @@
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
@@ -19,7 +20,7 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="nav navbar-nav">
-        <li class="nav-item pr-2">
+        <li class="nav-item dropdown pr-2">
           <a class="nav-link {% block active_competitions %}{% endblock %}" href="{% url 'actives' %}">
             <span class="fa fa-trophy pr-2" {% block color_competitions %}{% endblock %}></span>
             Competiciones
@@ -55,22 +56,31 @@
           </a>
         </li>
         {% else %}
-        <li class="nav-item">
+        
+        <ul class="nav-item dropdown">
           <!-- Font size too small but that way it doesnt affect navbar size -->
-          <a class="nav-link pr-3" href="{% url 'profile' %}" style="font-size: 7px; color: #9a9da0;">Sesión iniciada como: <br>
+          <a class="nav-link dropdown-toggle" id="session" data-toggle="dropdown"
+            style="font-size: 7px; color: #00c884;">Sesión iniciada como: <br>
             <i style="font-size: 9px; color: white;">{{ user }}</i></a>
-        </li>
-        <li class="nav-item active">
-          <a class="btn login-button" href="{% url 'logout' %}">
-            <span class="fa fa-sign-out pr-2"></span>
-            Cerrar sesión
-          </a>
-        </li>
-        {% if user.is_superuser %}
-        <li class="nav-item active pl-2">
-          <a class="btn btn-danger" style="width:100%; font-weight: 600; color: white" href="{% url 'admin:index' %}">
-            <span class="fa fa-wrench pr-2"></span>
-            Admin
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">
+              <span class="fa fa-user pr-2"></span>
+              Ver perfil
+            </a>
+            <a class="dropdown-item" href="{% url 'profile' %}">
+              <span class="fa fa-lock pr-2"></span>
+              Contraseñas
+            </a>
+            <a class="dropdown-item" id="session" href="{% url 'logout' %}">
+              <span class="fa fa-sign-out pr-1"></span>
+              Cerrar sesión
+            </a>
+          </div>
+        </ul>
+        {% if user.is_superuser or user.is_staff %}
+        <li class="nav-item pl-3">
+          <a class="btn btn-danger" style="width:100%; font-weight: 600; color: white;" href="{% url 'admin:index' %}">
+            <span class="fa fa-wrench"></span>
           </a>
         </li>
         {% endif %}
