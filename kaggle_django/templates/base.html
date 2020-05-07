@@ -57,12 +57,12 @@
         </li>
         {% else %}
         
-        <ul class="nav-item dropdown">
+        <ul class="nav-item dropdown animate slideIn">
           <!-- Font size too small but that way it doesnt affect navbar size -->
           <a class="nav-link dropdown-toggle" id="session" data-toggle="dropdown"
             style="font-size: 7px; color: #00c884;">Sesión iniciada como: <br>
             <i style="font-size: 9px; color: white;">{{ user }}</i></a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu animate slideIn">
             <a class="dropdown-item" href="#">
               <span class="fa fa-user pr-2"></span>
               Ver perfil
@@ -79,7 +79,7 @@
         </ul>
         {% if user.is_superuser or user.is_staff %}
         <li class="nav-item pl-3">
-          <a class="btn btn-danger" style="width:100%; font-weight: 600; color: white;" href="{% url 'admin:index' %}">
+          <a class="btn btn-danger" href="{% url 'admin:index' %}">
             <span class="fa fa-wrench"></span>
           </a>
         </li>
