@@ -131,7 +131,7 @@ def activate(request, uidb64, token):
         return redirect('/users/welcome', context)
 
 
-def password(request):
+def recover_password(request):
     form = PasswordForm(request.POST or None)
 
     if request.method == 'POST':
@@ -165,7 +165,7 @@ def password(request):
     return render(request, 'recover_password.html', {'form': form})
 
 
-def profile(request):
+def change_password(request):
     form = ProfileForm(request.POST or None)
 
     if request.method == 'POST':
