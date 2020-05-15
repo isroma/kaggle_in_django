@@ -124,6 +124,8 @@ def add_points(request, pk):
     # ranking.update(points=15)
 
     # Ranking.objects.create(container=competition,username='manu',points=10)
+    # Ranking.objects.create(container=competition,username='pepe',points=1)
+    # Ranking.objects.create(container=competition,username='lolo',points=5)
     
     rankings = Ranking.objects.filter(container=competition).all().order_by('-points')
 

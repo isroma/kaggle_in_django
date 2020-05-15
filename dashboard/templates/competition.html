@@ -68,27 +68,59 @@
 
 <div>
     <h5 class="pb-2">Ranking de participantes:</h5>
-    <table class="table"
-        style="outline-style: solid; outline-width: 2px; outline-color: lightgrey; text-align: center;">
+    <table id="myTable" class="table table-bordered" style="text-align: left;">
         <thead class="thead-light">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Puntos</th>
-                <th scope="col">Aproximación</th>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Puntos</th>
             </tr>
         </thead>
-        {% for ranking in rankings %}
         <tbody>
+            {% for ranking in rankings %}
             <tr>
-                <th scope="row">{{ forloop.counter }}</th>
+                <th>{{ forloop.counter }}</th>
                 <td>{{ ranking.username }}</td>
                 <td>{{ ranking.points }}</td>
-                <td></td>
             </tr>
+            {% endfor %}
         </tbody>
-        {% endfor %}
     </table>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "decimal": "",
+                "emptyTable": "No hay datos para esta tabla",
+                "info": "Monstrando de _START_ a _END_ filas de un total de _TOTAL_",
+                "infoEmpty": "Monstrando 0 de 0 filas",
+                "infoFiltered": "(filtrado del _MAX_ total de filas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ filas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "No hay datos que coincidan con la búsqueda",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "aria": {
+                    "sortAscending": ": activar para ordenar la columna en orden ascendente",
+                    "sortDescending": ": activar para ordenar la columna en orden descendente"
+                }
+            }
+        });
+    });
+</script>
 
 {% endblock %}
