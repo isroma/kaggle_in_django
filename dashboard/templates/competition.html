@@ -27,7 +27,7 @@
     {% if request.user.is_authenticated %}
     <form action="{% url 'add_points' competition.pk %}" class="pt-2 pl-3">
         <button type="submit" class="btn btn-info">
-            Añadir puntos
+            Pruebas
         </button>
     </form>
     {% endif %}
@@ -55,18 +55,40 @@
 
 <div class="col-md-12">
     <div class="login-or">
-       <hr class="hr-or">
-       <span class="span-or">o</span>
+        <hr class="hr-or">
+        <span class="span-or">o</span>
     </div>
- </div>
+</div>
 
 <div class="pt-3 pb-4 text-center">
     {% if request.user.is_authenticated %}
     <a href="{% url 'download' competition.pk %}" style="background-color: #00c884; border-color: #00c884"
         class="btn btn-info">
         <span class="fa fa-download pr-2"></span>
-        Descargar CSV
+        Descargar <i>.py</i> para participar
     </a>
+    <div class="myform form pt-3">
+        {% if error_message %}
+        <p class="alert alert-warning" role="alert">{{ error_message }}</p>
+        {% endif %}
+        <form action="{% url 'competition' competition.pk %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group pl-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="fieldWrapper">
+                            <label>CSV con predicciones:</label>
+                            {{ form.submission }}
+                            <button type="submit" class="btn btn-info">
+                                <span class="fa fa-upload pr-2"></span>
+                                Subir predicción
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     {% else %}
     <i style="color: #4c5357;">Debes <b style="color: #00c884;">iniciar sesión</b> previamente para poder participar en
         una competición</i>
@@ -74,7 +96,7 @@
 </div>
 
 <div style="padding-bottom: 50px;">
-    <h5 class="pb-2">Ranking de participantes:</h5>
+    <h1 class="pt-2">Ranking de participantes</h1>
     <table id="myTable" class="table table-bordered" style="text-align: left;">
         <thead class="thead-light">
             <tr>
@@ -96,7 +118,7 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
 
 <script type="text/javascript">

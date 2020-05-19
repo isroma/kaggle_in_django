@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from dashboard.models import Dashboard
+from dashboard.models import Dashboard, Ranking
 from django.utils import timezone
 from bootstrap_datepicker_plus import DatePickerInput
 
@@ -27,3 +27,12 @@ class CompetitionForm(ModelForm):
         model = Dashboard
         fields = ['title', 'description', 'beginning', 'deadline', 'train', 'test', 'max_daily_uploads', 'wait_time_uploads']
         exclude = ['predictions', 'participants', 'author']
+
+
+class SubmissionForm(ModelForm):
+    submission = forms.FileField(widget=forms.FileInput())
+
+    class Meta:
+        model = Ranking
+        fields = ['submission']
+        exclude = ['container', 'username', 'points']

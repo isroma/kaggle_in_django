@@ -17,7 +17,8 @@ class Dashboard(models.Model):
 class Ranking(models.Model):
     container = models.ForeignKey('Dashboard', related_name='rankings', db_index=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=150)
-    points = models.IntegerField(default=0)
+    submission = models.FileField(blank=True, null=True)
+    points = models.FloatField(default=0)
     
     class Meta:
         ordering = ['points']
