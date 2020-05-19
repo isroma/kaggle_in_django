@@ -26,4 +26,4 @@ class CompetitionForm(ModelForm):
     class Meta:
         model = Dashboard
         fields = ['title', 'description', 'beginning', 'deadline', 'train', 'test', 'max_daily_uploads', 'wait_time_uploads']
-        exclude = ['participants', 'author']
+        exclude = ['predictions', 'participants', 'author']

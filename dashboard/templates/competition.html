@@ -53,6 +53,13 @@
     </div>
 </div>
 
+<div class="col-md-12">
+    <div class="login-or">
+       <hr class="hr-or">
+       <span class="span-or">o</span>
+    </div>
+ </div>
+
 <div class="pt-3 pb-4 text-center">
     {% if request.user.is_authenticated %}
     <a href="{% url 'download' competition.pk %}" style="background-color: #00c884; border-color: #00c884"
@@ -66,7 +73,7 @@
     {% endif %}
 </div>
 
-<div>
+<div style="padding-bottom: 50px;">
     <h5 class="pb-2">Ranking de participantes:</h5>
     <table id="myTable" class="table table-bordered" style="text-align: left;">
         <thead class="thead-light">

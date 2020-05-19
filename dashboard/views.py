@@ -7,6 +7,8 @@ from dashboard.forms import CompetitionForm
 from django.db.models import F
 import datetime
 import os
+import pandas as pd
+from django.core.files.base import ContentFile
 
 
 today = datetime.date(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day)
@@ -90,7 +92,16 @@ def creating(request):
                 competition = CompetitionForm()
                 competition = form.save(commit=False)
 
-                competition.test = request.FILES['test']
+                temp_test = request.FILES['test']
+                temp_test = pd.read_csv(temp_test)
+                competition.private = ContentFile(temp_test.copy().drop(columns=temp_test.columns[0:-1]).to_csv())
+                competition.private.name = competition.title + '_private.csv'
+                competition.test = ContentFile(temp_test.iloc[:,:-1].to_csv())
+                competition.test.name = competition.title + '_test.csv'
+
+                competition.train = request.FILES['train']
+                competition.train.name = competition.title + '_train.csv'
+
                 competition.author = request.user.username
 
                 competition.save()
@@ -169,7 +180,7 @@ def editing(request, pk):
 def download(request, pk):
     competition = Dashboard.objects.get(pk=pk)
 
-    response = HttpResponse(competition.train, content_type='text/csv')
+    response = HttpResponse(competition.test, content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="%s.csv"' % competition.title
 
     # Creating ranking if someone participates
