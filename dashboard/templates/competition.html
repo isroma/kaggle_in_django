@@ -24,13 +24,13 @@
     </form>
     {% endif %}
 
-    {% if request.user.is_authenticated %}
+    <!-- {% if request.user.is_authenticated %}
     <form action="{% url 'add_points' competition.pk %}" class="pt-2 pl-3">
         <button type="submit" class="btn btn-info">
             Pruebas
         </button>
     </form>
-    {% endif %}
+    {% endif %} -->
 </div>
 
 <h1 class="pt-2">{{ competition.title }}</h1>

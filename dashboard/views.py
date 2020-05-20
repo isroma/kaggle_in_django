@@ -163,6 +163,7 @@ def delete(request, pk):
     return redirect('/dashboard/actives')
 
 
+# For testing
 def add_points(request, pk):
 
     # user = Profile.objects.filter(user=request.user)
@@ -230,16 +231,20 @@ def download(request, pk):
     response['Content-Disposition'] = 'attachment; filename="%s.py"' % competition.title
 
     # Creating ranking if someone participates
+    # User data updated below
     user = Profile.objects.filter(user=request.user)
-    user.update(points=F('points')+5)
-    if user.filter(points__gte=25): user.update(challenger=True)
-
+    
     # Initializing user as participant
     ranking = Ranking.objects.filter(container=competition)
     username = request.user.username
+
     if ranking is None: ranking.create(container=competition)
+    
     if ranking.filter(container=competition, username=username).exists() == False: 
         ranking.create(container=competition, username=username)
+        user.update(points=F('points')+5)
+
+    if user.filter(points__gte=25): user.update(challenger=True)
 
     competition.participants = ranking.count()
     competition.save()

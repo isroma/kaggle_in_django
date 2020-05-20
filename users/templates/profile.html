@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block page_content %}
+
+<body>
+   <div class="container">
+      <div class="col-md-6 mx-auto text-center pt-2 pb-2">
+         <h1 style="font-size: 35;">
+            Perfil de <i>{{ request.user.username }}</i>
+         </h1>
+         <p class="pt-4">
+            Los <b style="color: #00c884">puntos de participación</b> se consiguen subiendo predicciones
+            a distintas competiciones de forma correcta. Estos permiten que crees competiciones en la web
+            cuando tengas los necesarios.
+         </p>
+      </div>
+      <div class="row">
+         <div class="col-md-4 mx-auto">
+            <div class="myform form">
+               <div>
+                  <div class="text-center pt-2">
+                     <p style="font-size: larger;"><b>Puntos de participación:</b> {{ points }}</p>
+                     <p style="font-size: larger;"><b>Nivel de challenger:</b>
+                        {% if challenger %}
+                        desbloqueado
+                        {% else %}
+                        faltan {{ unlock }} puntos para desbloquearse
+                        {% endif %}
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+
+{% endblock %}

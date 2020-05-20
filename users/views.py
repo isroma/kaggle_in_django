@@ -117,8 +117,8 @@ def activate(request, uidb64, token):
         user = None
 
     context = {
-            'user': user
-        }
+        'user': user
+    }
 
     if user is not None and account_activation_token.check_token(user, token):
         Profile.objects.filter(user=user).update(verified=True)
@@ -196,3 +196,17 @@ def change_password(request):
                 return redirect('/')
 
     return render(request, 'change_password.html', {'form': form})
+
+
+def profile(request):
+
+    user = Profile.objects.get(user=request.user)
+
+    context = {
+        'username': request.user.username,
+        'points': user.points,
+        'unlock': 25 - user.points,
+        'challenger': user.challenger
+    }
+
+    return render(request, 'profile.html', context)
